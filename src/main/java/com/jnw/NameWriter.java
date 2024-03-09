@@ -19,6 +19,7 @@ import static com.jnw.FileResourceUtils.writeObjectFieldsAsCsvOnEachLine;
 
 
 public class NameWriter {
+
     public static final List<String> NAMES = List.of("Mary", "Alina", "John", "Nicole", "Mike");
 
     public static final List<Person> PERSONS = List.of(
