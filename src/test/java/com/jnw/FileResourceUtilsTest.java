@@ -1,16 +1,15 @@
 package com.jnw;
 
+import com.jnw.exception.JnwIllegalArgumentException;
 import lombok.extern.java.Log;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.net.URISyntaxException;
 
-import static java.util.Collections.emptyList;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static com.jnw.FileResourceUtils.*;
+import static java.util.Collections.emptyList;
+import static org.junit.jupiter.api.Assertions.*;
 
 @Log
 public class FileResourceUtilsTest {
@@ -19,7 +18,7 @@ public class FileResourceUtilsTest {
     @DisplayName("getFileFromResource() -> Test null fileName")
     public void givenNullFileName_whenGetFileFromResource_thenExceptionIsThrown() {
 
-        var exception = assertThrows(IllegalArgumentException.class,
+        var exception = assertThrows(JnwIllegalArgumentException.class,
                 () -> getFileFromResource(null)
         );
 
@@ -30,7 +29,7 @@ public class FileResourceUtilsTest {
     @DisplayName("getFileFromResource() -> Test empty fileName")
     public void givenEmptyFileName_whenGetFileFromResource_thenExceptionIsThrown() {
 
-        var exception = assertThrows(IllegalArgumentException.class,
+        var exception = assertThrows(JnwIllegalArgumentException.class,
                 () -> getFileFromResource("")
         );
 
@@ -41,7 +40,7 @@ public class FileResourceUtilsTest {
     @DisplayName("getFileFromResource() -> Test file not present in resource folder")
     public void givenWrongFileName_whenGetFileFromResource_thenExceptionIsThrown() {
 
-        var exception = assertThrows(IllegalArgumentException.class,
+        var exception = assertThrows(JnwIllegalArgumentException.class,
                 () -> getFileFromResource("data/non_existing_file.txt")
         );
 
@@ -65,7 +64,7 @@ public class FileResourceUtilsTest {
     @DisplayName("writeItemOnEachLine() -> Test null listOfItems")
     public void givenNullListOfItems_whenWriteItemOnEachLine_thenExceptionIsThrown() {
 
-        var exception = assertThrows(IllegalArgumentException.class,
+        var exception = assertThrows(JnwIllegalArgumentException.class,
                 () -> writeItemOnEachLine(null, true)
         );
 
@@ -76,7 +75,7 @@ public class FileResourceUtilsTest {
     @DisplayName("writeItemOnEachLine() -> Test empty listOfItems")
     public void givenEmptyListOfItems_whenWriteItemOnEachLine_thenExceptionIsThrown() {
 
-        var exception = assertThrows(IllegalArgumentException.class,
+        var exception = assertThrows(JnwIllegalArgumentException.class,
                 () -> writeItemOnEachLine(emptyList(), true)
         );
 
@@ -99,7 +98,7 @@ public class FileResourceUtilsTest {
     @DisplayName("writeObjectFieldsAsCsvOnEachLine() -> Test null listOfCsvWritable")
     public void givenNullListOfItems_whenWriteObjectFieldsAsCsvOnEachLine_thenExceptionIsThrown() {
 
-        var exception = assertThrows(IllegalArgumentException.class,
+        var exception = assertThrows(JnwIllegalArgumentException.class,
                 () -> writeObjectFieldsAsCsvOnEachLine(null, true)
         );
 
@@ -110,7 +109,7 @@ public class FileResourceUtilsTest {
     @DisplayName("writeObjectFieldsAsCsvOnEachLine() -> Test empty listOfCsvWritable")
     public void givenEmptyListOfItems_whenWriteObjectFieldsAsCsvOnEachLine_thenExceptionIsThrown() {
 
-        var exception = assertThrows(IllegalArgumentException.class,
+        var exception = assertThrows(JnwIllegalArgumentException.class,
                 () -> writeObjectFieldsAsCsvOnEachLine(emptyList(), true)
         );
 
