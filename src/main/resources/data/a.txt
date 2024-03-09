@@ -1,0 +1,7 @@
+Mary
+Alina
+John
+Nicole
+Mike
+
+Count of names with length 4 --> 3
