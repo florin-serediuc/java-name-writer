@@ -1,6 +1,8 @@
 package com.jnw;
 
 import com.jnw.dto.FieldsAsCsvWritable;
+import com.jnw.exception.JnwIllegalArgumentException;
+import lombok.extern.java.Log;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -11,6 +13,7 @@ import java.util.List;
 
 import static java.util.Objects.isNull;
 
+@Log
 public class FileResourceUtils {
 
     public static final String FILE_A = "data/a.txt";
@@ -19,7 +22,7 @@ public class FileResourceUtils {
     public static File getFileFromResource(String fileName) throws URISyntaxException {
 
         if (isNull(fileName) || fileName.isEmpty()) {
-            throw new IllegalArgumentException("fileName field cannot be null or empty");
+            throw new JnwIllegalArgumentException("fileName field cannot be null or empty");
         }
 
         var resourceFile = Thread.currentThread()
@@ -27,7 +30,7 @@ public class FileResourceUtils {
                 .getResource(fileName);
 
         if (isNull(resourceFile)) {
-            throw new IllegalArgumentException(String.format("File not found: '%s'", fileName));
+            throw new JnwIllegalArgumentException(String.format("File not found: '%s'", fileName));
         }
 
         return new File(resourceFile.toURI());
@@ -36,7 +39,7 @@ public class FileResourceUtils {
     public static void writeItemOnEachLine(List<String> listOfItems, boolean append) {
 
         if (isNull(listOfItems) || listOfItems.isEmpty()) {
-            throw new IllegalArgumentException("listOfItems cannot be null or empty");
+            throw new JnwIllegalArgumentException("listOfItems cannot be null or empty");
         }
 
         try (var fileWriter = new BufferedWriter(new FileWriter(getFileFromResource(FILE_A), append))) {
@@ -45,21 +48,21 @@ public class FileResourceUtils {
                 try {
                     fileWriter.write(item);
                     fileWriter.newLine();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                } catch (IOException ex) {
+                    log.severe(ex.getMessage());
                 }
             });
             fileWriter.newLine();
 
         } catch (IOException | URISyntaxException ex) {
-            ex.printStackTrace();
+            log.severe(ex.getMessage());
         }
     }
 
     public static void writeObjectFieldsAsCsvOnEachLine(List<? extends FieldsAsCsvWritable> listOfCsvWritable, boolean append) {
 
         if (isNull(listOfCsvWritable) || listOfCsvWritable.isEmpty()) {
-            throw new IllegalArgumentException("listOfCsvWritable cannot be null or empty");
+            throw new JnwIllegalArgumentException("listOfCsvWritable cannot be null or empty");
         }
 
         try (var fileWriter = new BufferedWriter(new FileWriter(getFileFromResource(FILE_B), append))) {
@@ -70,14 +73,14 @@ public class FileResourceUtils {
                             String.join(",", listItem.getAllFieldsAsList())
                     );
                     fileWriter.newLine();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                } catch (IOException ex) {
+                    log.severe(ex.getMessage());
                 }
             });
             fileWriter.newLine();
 
         } catch (IOException | URISyntaxException ex) {
-            ex.printStackTrace();
+            log.severe(ex.getMessage());
         }
     }
 }

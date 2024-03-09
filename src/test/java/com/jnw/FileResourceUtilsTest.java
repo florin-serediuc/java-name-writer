@@ -1,5 +1,6 @@
 package com.jnw;
 
+import lombok.extern.java.Log;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static com.jnw.FileResourceUtils.*;
 
-
+@Log
 public class FileResourceUtilsTest {
 
     @Test
@@ -55,8 +56,8 @@ public class FileResourceUtilsTest {
             var existingFile = getFileFromResource("data/a.txt");
             assertTrue(existingFile.exists());
 
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
+        } catch (URISyntaxException ex) {
+            log.severe(ex.getMessage());
         }
     }
 
